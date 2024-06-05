@@ -6,6 +6,12 @@
     --white: #fff;
 }
 
+@keyframes blink {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1.0; }
+}
+
 * {
     font-family: "Patua One", serif;
     font-weight: 400;
@@ -151,4 +157,16 @@ input:not(:checked) + .slider {
 
 .red-members {
     right: 10px;
+}
+
+.star-active {
+    animation: blink 1s infinite;
+}
+
+.bomb-active {
+    background-color: #ff0000;
+}
+
+.jackpot-active {
+    background-color: #ffd700;
 }
