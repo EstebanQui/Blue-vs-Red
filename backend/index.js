@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('A user connected');
+
+    socket.emit('scoreUpdate', scores);
 
     socket.on('joinTeam', (newTeam) => {
         const oldTeam = socket.team;
