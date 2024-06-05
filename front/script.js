@@ -22,59 +22,6 @@ socket.on('teamMembersUpdate', (teamMembers) => {
     document.getElementById('membersBlue').innerText = `Membres: ${teamMembers.blue}`;
 });
 
-socket.on('powerUp', (powerUp) => {
-    switch (powerUp.type) {
-        case 'star':
-            activateStarPowerUp();
-            break;
-        case 'bomb':
-            activateBombPowerUp();
-            break;
-        case 'jackpot':
-            activateJackpotPowerUp();
-            break;
-    }
-});
-
-function activateStarPowerUp() {
-    const star = document.getElementById('starPowerUp');
-    star.style.display = 'block';
-    setTimeout(() => {
-        star.style.display = 'none';
-    }, 3000);
-}
-
-function activateBombPowerUp() {
-    const bomb = document.getElementById('bombPowerUp');
-    bomb.style.display = 'block';
-    setTimeout(() => {
-        bomb.style.display = 'none';
-    }, 3000);
-}
-
-function activateJackpotPowerUp() {
-    const jackpot = document.getElementById('jackpotPowerUp');
-    jackpot.style.display = 'block';
-    setTimeout(() => {
-        jackpot.style.display = 'none';
-    }, 3000);
-}
-
-document.getElementById('starPowerUp').addEventListener('click', function() {
-    activateStarPowerUp();
-    this.style.display = 'none';
-});
-
-document.getElementById('bombPowerUp').addEventListener('click', function() {
-    activateBombPowerUp();
-    this.style.display = 'none';
-});
-
-document.getElementById('jackpotPowerUp').addEventListener('click', function() {
-    activateJackpotPowerUp();
-    this.style.display = 'none';
-});
-
 document.getElementById('teamChoice').addEventListener('change', function() {
     const newTeam = this.checked ? 'red' : 'blue';
     document.getElementById('blue').style.pointerEvents = newTeam === 'blue' ? 'auto' : 'none';

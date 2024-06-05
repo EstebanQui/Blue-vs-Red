@@ -3,7 +3,6 @@ import http from 'http';
 import ip from 'ip';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import { randomInt } from 'crypto';
 
 const app = express();
 const server = http.createServer(app);
@@ -11,20 +10,6 @@ const PORT = 3000;
 const io = new Server(server, { cors: { origin: '*' } });
 const scores = { red: 0, blue: 0 };
 const teamMembers = { red: 0, blue: 0 };
-
-setInterval(() => {
-    io.emit('powerUp', { type: 'star' });
-}, 60000);
-
-setInterval(() => {
-    io.emit('powerUp', { type: 'bomb' });
-}, 60000);
-
-setInterval(() => {
-    if (randomInt(10) === 0) {
-        io.emit('powerUp', { type: 'jackpot' });
-    }
-}, 60000);
 
 app.use(cors());
 
