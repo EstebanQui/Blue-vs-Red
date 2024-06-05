@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>🟦 Blue VS Red 🟥</title>
+</head>
+
+<body>
+    <div class="team-switch">
+        <div class="background">
+            <span id="labelBlue">Blue</span>
+            <label class="switch">
+                <input type="checkbox" id="teamChoice">
+                <span class="slider round"></span>
+            </label>
+            <span id="labelRed">Red</span>
+        </div>
+    </div>
+    <section id="blue" onclick="increment('blue')">
+        <span id="scoreBlue">0</span>
+        <div id="membersBlue" class="members blue-members">Members: 0</div>
+    </section>
+    <section id="tag">
+        VS
+    </section>
+    <section id="red" onclick="increment('red')">
+        <span id="scoreRed">0</span>
+        <div id="membersRed" class="members red-members">Members: 0</div>
+    </section>
+</body>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="./script.js"></script>
+
+</html>

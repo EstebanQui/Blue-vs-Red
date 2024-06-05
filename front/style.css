@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+
+:root {
+    --blue: #025DF2;
+    --red: #D42111;
+    --white: #fff;
+}
+
+* {
+    font-family: "Patua One", serif;
+    font-weight: 400;
+    font-style: normal;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#blue {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100vh;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+#tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    border-radius: 1rem;
+    font-size: 3em;
+    padding: 1rem;
+}
+
+#red {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100vh;
+    background-color: var(--red);
+    color: var(--white);
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+.team-switch {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-switch > .background {
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    padding: 0.5rem;
+    margin: 1rem;
+    border-radius: 1rem;
+}
+
+#labelBlue, #labelRed {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    z-index: 1000;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--white);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--white);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--red)
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+input:not(:checked) + .slider {
+    background-color: var(--blue)
+}
+
+.members {
+    position: absolute;
+    top: 10px;
+    color: var(--white);
+    font-size: 0.5em;
+}
+
+.blue-members {
+    left: 10px;
+}
+
+.red-members {
+    right: 10px;
+}

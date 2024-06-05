@@ -9,6 +9,7 @@ const server = http.createServer(app);
 const PORT = 3000;
 const io = new Server(server, { cors: { origin: '*' } });
 const scores = { red: 0, blue: 0 };
+const teamMembers = { red: 0, blue: 0 };
 
 app.use(cors());
 
@@ -20,9 +21,10 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 
     socket.on('joinTeam', (team) => {
+        teamMembers[team]++;
         socket.join(team);
-        console.log(`${socket.id} joined ${team}`);
-        socket.emit('scoreUpdate', scores);
+        socket.team = team;
+        io.emit('teamMembersUpdate', teamMembers);
     });
 
     socket.on('incrementScore', (team) => {
@@ -31,7 +33,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        if (socket.team) {
+            teamMembers[socket.team]--;
+            io.emit('teamMembersUpdate', teamMembers);
+        }
+    });
+
+    socket.on('setSurname', (data) => {
+        io.to(socket.team).emit('updateSurname', { team: socket.team, surname: data.surname });
     });
 });
 
