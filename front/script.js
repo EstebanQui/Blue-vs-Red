@@ -24,11 +24,11 @@ socket.on('teamMembersUpdate', (teamMembers) => {
 
 document.getElementById('teamChoice').addEventListener('change', function() {
     const newTeam = this.checked ? 'red' : 'blue';
-    document.getElementById('blue').style.pointerEvents = newTeam === 'blue' ? 'none' : 'auto';
-    document.getElementById('red').style.pointerEvents = newTeam === 'red' ? 'none' : 'auto';
+    document.getElementById('blue').style.pointerEvents = newTeam === 'blue' ? 'auto' : 'none';
+    document.getElementById('red').style.pointerEvents = newTeam === 'red' ? 'auto' : 'none';
     socket.emit('joinTeam', newTeam);
 });
 
-document.getElementById('red').style.pointerEvents = 'none';
-document.getElementById('blue').style.pointerEvents = 'auto';
+document.getElementById('red').style.pointerEvents = 'auto';
+document.getElementById('blue').style.pointerEvents = 'none';
 socket.emit('joinTeam', 'blue');
