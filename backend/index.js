@@ -20,10 +20,16 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('joinTeam', (team) => {
-        teamMembers[team]++;
-        socket.join(team);
-        socket.team = team;
+    socket.on('joinTeam', (newTeam) => {
+        const oldTeam = socket.team;
+        if (oldTeam) {
+            teamMembers[oldTeam] = Math.max(0, teamMembers[oldTeam] - 1);
+            io.emit('teamMembersUpdate', teamMembers);
+        }
+    
+        teamMembers[newTeam]++;
+        socket.join(newTeam);
+        socket.team = newTeam;
         io.emit('teamMembersUpdate', teamMembers);
     });
 

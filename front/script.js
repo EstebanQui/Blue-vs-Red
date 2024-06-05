@@ -23,15 +23,10 @@ socket.on('teamMembersUpdate', (teamMembers) => {
 });
 
 document.getElementById('teamChoice').addEventListener('change', function() {
-    if (this.checked) {
-        document.getElementById('blue').style.pointerEvents = 'none';
-        document.getElementById('red').style.pointerEvents = 'auto';
-        socket.emit('joinTeam', 'red');
-    } else {
-        document.getElementById('red').style.pointerEvents = 'none';
-        document.getElementById('blue').style.pointerEvents = 'auto';
-        socket.emit('joinTeam', 'blue');
-    }
+    const newTeam = this.checked ? 'red' : 'blue';
+    document.getElementById('blue').style.pointerEvents = newTeam === 'blue' ? 'none' : 'auto';
+    document.getElementById('red').style.pointerEvents = newTeam === 'red' ? 'none' : 'auto';
+    socket.emit('joinTeam', newTeam);
 });
 
 document.getElementById('red').style.pointerEvents = 'none';
