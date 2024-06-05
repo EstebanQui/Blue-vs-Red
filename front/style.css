@@ -178,10 +178,12 @@ input:not(:checked) + .slider {
 
 .bomb-active {
     background-color: #ff0000;
+    border-radius: 100%;
 }
 
 .jackpot-active {
     background-color: #ffd700;
+    border-radius: 100%;
 }
 
 .star-active, .bomb-active, .jackpot-active {

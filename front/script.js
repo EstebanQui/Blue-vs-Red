@@ -60,6 +60,21 @@ function activateJackpotPowerUp() {
     }, 3000);
 }
 
+document.getElementById('starPowerUp').addEventListener('click', function() {
+    activateStarPowerUp();
+    this.style.display = 'none';
+});
+
+document.getElementById('bombPowerUp').addEventListener('click', function() {
+    activateBombPowerUp();
+    this.style.display = 'none';
+});
+
+document.getElementById('jackpotPowerUp').addEventListener('click', function() {
+    activateJackpotPowerUp();
+    this.style.display = 'none';
+});
+
 document.getElementById('teamChoice').addEventListener('change', function() {
     const newTeam = this.checked ? 'red' : 'blue';
     document.getElementById('blue').style.pointerEvents = newTeam === 'blue' ? 'auto' : 'none';
