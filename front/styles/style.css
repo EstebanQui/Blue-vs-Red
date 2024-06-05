@@ -154,3 +154,29 @@ input:not(:checked)+.slider {
 .red-members {
     right: 10px;
 }
+
+.corner-name {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.5em;
+    color: var(--white);
+    opacity: 0.8;
+}
+
+.corner-name > a {
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.corner-name > a:hover {
+    text-decoration: underline;
+}
+
+.left-corner {
+    left: 10px;
+}
+
+.right-corner {
+    right: 10px;
+}
