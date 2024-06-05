@@ -29,6 +29,10 @@ document.getElementById('teamChoice').addEventListener('change', function() {
     socket.emit('joinTeam', newTeam);
 });
 
-document.getElementById('red').style.pointerEvents = 'auto';
-document.getElementById('blue').style.pointerEvents = 'none';
-socket.emit('joinTeam', 'blue');
+window.onload = () => {
+    const defaultTeam = 'blue';
+    document.getElementById('teamChoice').checked = (defaultTeam === 'red');
+    socket.emit('joinTeam', defaultTeam);
+    document.getElementById('blue').style.pointerEvents = 'auto';
+    document.getElementById('red').style.pointerEvents = 'none';
+};
