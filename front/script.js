@@ -37,38 +37,27 @@ socket.on('powerUp', (powerUp) => {
 });
 
 function activateStarPowerUp() {
-    const originalIncrement = increment;
-    increment = function(team) {
-        originalIncrement(team);
-        originalIncrement(team);
-    };
-
+    const star = document.getElementById('starPowerUp');
+    star.style.display = 'block';
     setTimeout(() => {
-        increment = originalIncrement;
-    }, 10000);
+        star.style.display = 'none';
+    }, 3000);
 }
 
 function activateBombPowerUp() {
-    const originalIncrement = increment;
-    increment = function(team) {
-        scores[team] = Math.max(0, scores[team] - 5);
-        socket.emit('scoreUpdate', scores);
-    };
-
+    const bomb = document.getElementById('bombPowerUp');
+    bomb.style.display = 'block';
     setTimeout(() => {
-        increment = originalIncrement;
-    }, 10000);
+        bomb.style.display = 'none';
+    }, 3000);
 }
 
 function activateJackpotPowerUp() {
-    increment = function(team) {
-        scores[team] += 500;
-        socket.emit('scoreUpdate', scores);
-    };
-
-    increment(currentTeam);
-
-    increment = originalIncrement;
+    const jackpot = document.getElementById('jackpotPowerUp');
+    jackpot.style.display = 'block';
+    setTimeout(() => {
+        jackpot.style.display = 'none';
+    }, 3000);
 }
 
 document.getElementById('teamChoice').addEventListener('change', function() {
