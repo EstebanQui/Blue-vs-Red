@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+    console.log('--------------------------------');
     console.log('A user connected');
 
     socket.emit('scoreUpdate', scores);
@@ -37,6 +38,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('incrementScore', (team) => {
+        console.log('--------------------------------');
         console.log(`Increment score for team: ${team}`);
         let increment = 1;
         if (activeEffects[team].bomb) {
@@ -50,13 +52,16 @@ io.on('connection', (socket) => {
     });
 
     socket.on('applyEffect', ({ team, effect }) => {
+        console.log('--------------------------------');
         console.log(`Effect applied: ${effect} on team ${team}`);
         activeEffects[team][effect] = true;
-        const duration = effect === 'bomb' ? 20000 : 10000; // 20 seconds for bomb, 10 seconds for star
-
+        const duration = effect === 'bomb' ? 20000 : 10000;
+    
         setTimeout(() => {
             activeEffects[team][effect] = false;
+            console.log('--------------------------------');
             console.log(`Effect removed: ${effect} on team ${team}`);
+            io.emit('scoreUpdate', scores);
         }, duration);
     });
 
@@ -75,5 +80,6 @@ io.on('connection', (socket) => {
 
 
 server.listen(PORT, () => {
+    console.log('--------------------------------');
     console.log(`Server running at http://${ip.address()}:${PORT}`);
 });
