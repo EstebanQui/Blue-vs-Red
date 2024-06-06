@@ -5,6 +5,8 @@ const activePowerUps = {
     red: null
 };
 
+let powerUpInterval = null;
+
 function increment(team) {
     const currentScore = parseInt(document.getElementById(`score${team.charAt(0).toUpperCase() + team.slice(1)}`).innerText);
     socket.emit('incrementScore', team);
@@ -53,7 +55,28 @@ function handleEmojiClick(emojiElement) {
         activePowerUps[team] = effect;
         socket.emit('applyEffect', { team, effect });
         emojiElement.remove();
+        startTimer(effect === 'bomb' ? 20 : 10, effect);
     }
+}
+
+function startTimer(duration, effect) {
+    clearInterval(powerUpInterval);
+    let timer = duration;
+    document.getElementById('powerUpTimer').style.display = 'block';
+    
+    const timerText = effect === 'bomb' ? `Malus : -2 for ` : `Bonus : x2 for `;
+    
+    powerUpInterval = setInterval(function () {
+        let minutes = parseInt(timer / 60, 10);
+        let seconds = parseInt(timer % 60, 10);
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById('timer').textContent = timerText + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            clearInterval(powerUpInterval);
+            document.getElementById('powerUpTimer').style.display = 'none';
+        }
+    }, 1000);
 }
 
 socket.on('adjustedScoreUpdate', (scores) => {

@@ -208,3 +208,21 @@ input:not(:checked)+.slider {
     from { top: 0%; }
     to { top: 100%; }
 }
+
+.power-up-timer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+    margin: 1rem;
+    font-size: 1.5em;
+    display: none;
+}
+
+.power-up-timer > p {
+    display: inline;
+    background-color: var(--white);
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
