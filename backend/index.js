@@ -41,12 +41,12 @@ io.on('connection', (socket) => {
         console.log('--------------------------------');
         console.log(`Increment score for team: ${team}`);
         let increment = 1;
-        if (activeEffects[team].bomb) {
+        if (activeEffects[team].bomb && scores[team] > 0) {
             increment = -2;
         } else if (activeEffects[team].star) {
             increment *= 2;
         }
-        scores[team] += increment;
+        scores[team] = Math.max(0, scores[team] + increment);
         console.log(`Updated scores: ${JSON.stringify(scores)}`);
         io.emit('scoreUpdate', scores);
     });

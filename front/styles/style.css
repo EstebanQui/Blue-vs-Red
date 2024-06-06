@@ -182,3 +182,15 @@ input:not(:checked)+.slider {
 .right-corner {
     right: 10px;
 }
+
+.power-up {
+    position: absolute;
+    user-select: none;
+    cursor: pointer;
+    animation: fall 5s linear;
+}
+
+@keyframes fall {
+    from { top: 0%; }
+    to { top: 100%; }
+}

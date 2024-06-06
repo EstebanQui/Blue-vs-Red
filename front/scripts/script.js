@@ -1,12 +1,18 @@
-const socket = io('https://blue-vs-red-mb7o.onrender.com/');
+const socket = io('localhost:3000');
+
+const activePowerUps = {
+    blue: null,
+    red: null
+};
 
 function increment(team) {
+    const currentScore = parseInt(document.getElementById(`score${team.charAt(0).toUpperCase() + team.slice(1)}`).innerText);
     socket.emit('incrementScore', team);
 }
 
 socket.on('scoreUpdate', (scores) => {
-    document.getElementById('scoreRed').innerText = scores.red;
-    document.getElementById('scoreBlue').innerText = scores.blue;
+    document.getElementById('scoreRed').innerText = Math.max(0, scores.red);
+    document.getElementById('scoreBlue').innerText = Math.max(0, scores.blue);
     const total = scores.red + scores.blue;
     const blueWidth = Math.max((scores.blue / total) * 100, 10);
     const redWidth = Math.max((scores.red / total) * 100, 10);
@@ -36,34 +42,15 @@ window.onload = () => {
     socket.emit('joinTeam', defaultTeam);
     document.getElementById('blue').style.pointerEvents = 'auto';
     document.getElementById('red').style.pointerEvents = 'none';
-    addFixedEmojis();
+    setInterval(spawnPowerUps, 5000);
 };
-
-function addFixedEmojis() {
-    const emojiContainer = document.getElementById('emojis');
-    const emojis = ['💣', '⭐'];
-
-    emojis.forEach((emoji) => {
-        const emojiElement = document.createElement('span');
-        emojiElement.innerHTML = emoji;
-        emojiElement.classList.add('emoji');
-        emojiElement.style.position = 'absolute';
-        emojiElement.style.left = '50%';
-        emojiElement.style.top = emoji === '💣' ? '30%' : '70%';
-        emojiContainer.appendChild(emojiElement);
-
-        emojiElement.addEventListener('click', () => {
-            handleEmojiClick(emoji);
-        });
-    });
-}
 
 function handleEmojiClick(emoji) {
     let team = document.getElementById('teamChoice').checked ? 'red' : 'blue';
-    if (emoji === '💣') {
-        socket.emit('applyEffect', { team, effect: 'bomb' });
-    } else if (emoji === '⭐') {
-        socket.emit('applyEffect', { team, effect: 'star' });
+    const effect = emoji === '💣' ? 'bomb' : 'star';
+    if (activePowerUps[team] !== effect) {
+        activePowerUps[team] = effect;
+        socket.emit('applyEffect', { team, effect });
     }
 }
 
@@ -71,3 +58,25 @@ socket.on('adjustedScoreUpdate', (scores) => {
     document.getElementById('scoreRed').innerText = scores.red;
     document.getElementById('scoreBlue').innerText = scores.blue;
 });
+
+function spawnPowerUps() {
+    const powerUpTypes = ['💣', '⭐'];
+    const powerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+    const powerUpElement = document.createElement('div');
+    powerUpElement.innerText = powerUp;
+    powerUpElement.className = 'power-up';
+    powerUpElement.style.left = `${Math.random() * 100}%`;
+    powerUpElement.style.top = '0%';
+
+    document.body.appendChild(powerUpElement);
+
+    const fallInterval = setInterval(() => {
+        const currentTop = parseFloat(powerUpElement.style.top);
+        if (currentTop < 100) {
+            powerUpElement.style.top = `${currentTop + 2}%`;
+        } else {
+            clearInterval(fallInterval);
+            document.body.removeChild(powerUpElement);
+        }
+    }, 100);
+}
