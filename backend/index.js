@@ -10,6 +10,7 @@ const PORT = 3000;
 const io = new Server(server, { cors: { origin: '*' } });
 const scores = { red: 0, blue: 0 };
 const teamMembers = { red: 0, blue: 0 };
+const activeEffects = { red: { bomb: false, star: false }, blue: { bomb: false, star: false } };
 
 app.use(cors());
 
@@ -36,8 +37,27 @@ io.on('connection', (socket) => {
     });
 
     socket.on('incrementScore', (team) => {
-        scores[team]++;
-        io.to(team).emit('scoreUpdate', scores);
+        console.log(`Increment score for team: ${team}`);
+        let increment = 1;
+        if (activeEffects[team].bomb) {
+            increment = -2;
+        } else if (activeEffects[team].star) {
+            increment *= 2;
+        }
+        scores[team] += increment;
+        console.log(`Updated scores: ${JSON.stringify(scores)}`);
+        io.emit('scoreUpdate', scores);
+    });
+
+    socket.on('applyEffect', ({ team, effect }) => {
+        console.log(`Effect applied: ${effect} on team ${team}`);
+        activeEffects[team][effect] = true;
+        const duration = effect === 'bomb' ? 20000 : 10000; // 20 seconds for bomb, 10 seconds for star
+
+        setTimeout(() => {
+            activeEffects[team][effect] = false;
+            console.log(`Effect removed: ${effect} on team ${team}`);
+        }, duration);
     });
 
     socket.on('disconnect', () => {

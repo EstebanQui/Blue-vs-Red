@@ -36,5 +36,49 @@ window.onload = () => {
     socket.emit('joinTeam', defaultTeam);
     document.getElementById('blue').style.pointerEvents = 'auto';
     document.getElementById('red').style.pointerEvents = 'none';
+    
+    // Start bonus appearance immediately
+    console.log('Bonuses should start appearing now.');
+    addFixedEmojis();
 };
 
+// Function to add fixed emojis (always visible)
+function addFixedEmojis() {
+    const emojiContainer = document.getElementById('emojis');
+    const emojis = ['💣', '⭐'];
+
+    emojis.forEach((emoji) => {
+        const emojiElement = document.createElement('span');
+        emojiElement.innerHTML = emoji;
+        emojiElement.classList.add('emoji');
+        emojiElement.style.position = 'absolute';
+        emojiElement.style.left = '50%'; // Center horizontally
+        emojiElement.style.top = emoji === '💣' ? '30%' : '70%'; // Separate vertically
+        emojiContainer.appendChild(emojiElement);
+
+        // Add click event for the emoji
+        emojiElement.addEventListener('click', () => {
+            handleEmojiClick(emoji);
+            // No need to remove the emoji after clicking
+        });
+    });
+}
+
+// Function to handle emoji click
+function handleEmojiClick(emoji) {
+    let team = document.getElementById('teamChoice').checked ? 'red' : 'blue';
+    console.log(`Emoji clicked: ${emoji} for team ${team}`);
+    if (emoji === '💣') {
+        console.log(`Applying bomb effect to team ${team}`);
+        socket.emit('applyEffect', { team, effect: 'bomb' });
+    } else if (emoji === '⭐') {
+        console.log(`Applying star effect to team ${team}`);
+        socket.emit('applyEffect', { team, effect: 'star' });
+    }
+}
+
+socket.on('adjustedScoreUpdate', (scores) => {
+    console.log('Adjusted scores:', scores);
+    document.getElementById('scoreRed').innerText = scores.red;
+    document.getElementById('scoreBlue').innerText = scores.blue;
+});
