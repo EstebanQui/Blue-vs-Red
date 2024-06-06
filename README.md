@@ -1,7 +1,12 @@
-# Blue VS Red Project Documentation
+<div align="center">
+  
+# Blue VS Red | Documentation
+
 [![GitHub release](https://img.shields.io/github/release/EstebanQui/Blue-vs-Red?include_prereleases=&sort=semver&color=blue)](https://github.com/EstebanQui/Blue-vs-Red/releases/)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![issues - Blue-vs-Red](https://img.shields.io/github/issues/EstebanQui/Blue-vs-Red)](https://github.com/EstebanQui/Blue-vs-Red/issues)
+  
+</div>
 
 <img width="1548" alt="image" src="https://github.com/EstebanQui/Blue-vs-Red/assets/152623309/de9863e4-8871-4b72-b0ea-2b6118834e72">
 
