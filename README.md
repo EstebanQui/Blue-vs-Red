@@ -1,4 +1,8 @@
 # Blue VS Red Project Documentation
+[![GitHub release](https://img.shields.io/github/release/EstebanQui/Blue-vs-Red?include_prereleases=&sort=semver&color=blue)](https://github.com/EstebanQui/Blue-vs-Red/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+
+<img width="1548" alt="image" src="https://github.com/EstebanQui/Blue-vs-Red/assets/152623309/de9863e4-8871-4b72-b0ea-2b6118834e72">
 
 ## Overview
 Blue VS Red is a community clash game where users join either the Blue or Red team and compete by clicking in their team's area to increase its size. The game features dynamic power-ups that appear randomly and can either boost or reduce the team's score.
@@ -51,3 +55,6 @@ Navigate to the `backend/` directory and install dependencies:
 ## Developer Team
 - [**@IDRAYNAR**](https://github.com/IDRAYNAR)
 - [**@EstebanQui**](https://github.com/EstebanQui)
+
+## License
+Released under [MIT](/LICENSE) by [@EstebanQui](https://github.com/EstebanQui).
