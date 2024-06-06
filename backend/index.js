@@ -54,6 +54,13 @@ io.on('connection', (socket) => {
     socket.on('applyEffect', ({ team, effect }) => {
         console.log('--------------------------------');
         console.log(`Effect applied: ${effect} on team ${team}`);
+
+        Object.keys(activeEffects[team]).forEach(eff => {
+            if (eff !== effect) {
+                activeEffects[team][eff] = false;
+            }
+        });
+
         activeEffects[team][effect] = true;
         const duration = effect === 'bomb' ? 20000 : 10000;
     

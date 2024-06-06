@@ -45,12 +45,14 @@ window.onload = () => {
     setInterval(spawnPowerUps, 5000);
 };
 
-function handleEmojiClick(emoji) {
+function handleEmojiClick(emojiElement) {
+    let emoji = emojiElement.innerText;
     let team = document.getElementById('teamChoice').checked ? 'red' : 'blue';
     const effect = emoji === '💣' ? 'bomb' : 'star';
     if (activePowerUps[team] !== effect) {
         activePowerUps[team] = effect;
         socket.emit('applyEffect', { team, effect });
+        emojiElement.remove();
     }
 }
 
@@ -67,6 +69,10 @@ function spawnPowerUps() {
     powerUpElement.className = 'power-up';
     powerUpElement.style.left = `${Math.random() * 100}%`;
     powerUpElement.style.top = '0%';
+
+    powerUpElement.addEventListener('click', function() {
+        handleEmojiClick(this);
+    });
 
     document.body.appendChild(powerUpElement);
 
