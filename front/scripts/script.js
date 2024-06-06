@@ -15,6 +15,7 @@ socket.on('scoreUpdate', (scores) => {
 
     const tagPosition = Math.min(Math.max(blueWidth, 10), 90);
     document.getElementById('tag').style.left = `${tagPosition}%`;
+
 });
 
 socket.on('teamMembersUpdate', (teamMembers) => {
@@ -36,3 +37,4 @@ window.onload = () => {
     document.getElementById('blue').style.pointerEvents = 'auto';
     document.getElementById('red').style.pointerEvents = 'none';
 };
+
